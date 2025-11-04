@@ -1,0 +1,656 @@
+
+/* ==========================================================================
+   DR-CODING – Demo Clone Styles
+   --------------------------------------------------------------------------
+   - Modern, accessible, responsive base.
+   - No external frameworks; system font stack by default.
+   - Honors reduced motion settings.
+   - All colors via CSS custom properties.
+   ========================================================================== */
+
+:root{
+  /* Dunklere Grundfarben für einen edleren Look */
+  --bg: #070c14;
+  --bg-elev: #0d1628;
+  --text: #e2e6f3;
+  --muted: #98a0b2;
+  --brand-1: #3aa5ff;
+  --brand-2: #00cdb3;
+  --danger: #ff5c7a;
+  --ok: #2fd07f;
+  --focus: #ffd35c;
+  --border: #1f2940;
+  --card: #101c32;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --maxw: 1180px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root{
+    --bg: #ffffff;
+    --bg-elev: #f6f7fb;
+    --text: #101321;
+    --muted: #576076;
+    --brand-1: #0d63ff;
+    --brand-2: #00b3a9;
+    --border: #dfe4f0;
+    --card: #ffffff;
+    --shadow: 0 10px 22px rgba(16,19,33,.08);
+  }
+}
+
+/* Reset-ish */
+*, *::before, *::after { box-sizing: border-box }
+html { scroll-behavior: smooth }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img, svg, video { max-width: 100%; height: auto; }
+a { color: var(--brand-1); text-underline-offset: .15em; }
+a:hover { color: var(--brand-2); }
+button { font: inherit }
+input, select, textarea { font: inherit; color: inherit; background: transparent }
+
+/* Containers */
+.container { width: min(100% - 2rem, var(--maxw)); margin-inline: auto }
+.section { padding: clamp(2.5rem, 4vw, 4.5rem) 0 }
+.section--tight { padding-block: 2rem }
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus {
+  left: 1rem; top: 1rem; width: auto; height: auto; z-index: 1000;
+  background: var(--focus); color: #000; padding: .5rem .75rem; border-radius: .375rem;
+}
+
+/* Header */
+.header {
+  position: sticky; top: 0; z-index: 999;
+  backdrop-filter: saturate(120%) blur(10px);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 0 }
+.brand{
+  display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; color: inherit;
+}
+.brand__logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--brand-1), var(--brand-2)); display:grid; place-items:center; box-shadow: var(--shadow) }
+.brand__text { font-weight: 700; letter-spacing: .3px }
+.brand small { font-weight: 600; opacity: .65 }
+
+.nav__list {
+  display: flex; gap: .5rem; align-items: center; list-style: none; margin: 0; padding: 0;
+}
+.nav__link {
+  display: inline-flex; gap: .5rem; align-items: center;
+  padding: .55rem .8rem; border-radius: .6rem; text-decoration: none; color: inherit;
+}
+.nav__link[aria-current="page"], .nav__link:hover { background: var(--bg-elev); }
+
+/* Mobile menu */
+.menu-toggle { display: none; border: 1px solid var(--border); background: var(--bg-elev); padding: .55rem .7rem; border-radius: .6rem }
+@media (max-width: 840px) {
+  .menu-toggle { display: inline-flex }
+  .nav__list { 
+    position: fixed; inset: 64px 0 auto 0; background: var(--bg);
+    transform: translateY(-120%); transition: transform .4s ease;
+    border-bottom: 1px solid var(--border); padding: 1rem; flex-direction: column; gap: .2rem
+  }
+  .nav__list.is-open { transform: translateY(0) }
+}
+
+/* Hero */
+.hero {
+  display: grid; gap: clamp(1rem, 2vw, 2rem); align-items: center;
+  grid-template-columns: 1.1fr .9fr;
+}
+@media (max-width: 960px){ .hero { grid-template-columns: 1fr } }
+.hero h1{
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin: 0 0 .6rem;
+}
+.hero__kicker { color: var(--muted); font-weight: 600; letter-spacing: .2px }
+.hero__lede { color: var(--muted); max-width: 60ch }
+.cta-row { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1rem }
+
+.btn {
+  --btn-bg: var(--brand-1);
+  --btn-fg: #fff;
+  padding: .7rem 1rem; border-radius: .7rem; border: 1px solid color-mix(in srgb, var(--btn-bg), #000 12%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--btn-bg), #fff 12%), var(--btn-bg));
+  color: var(--btn-fg); text-decoration: none; display: inline-flex; gap: .5rem; align-items: center; font-weight: 600;
+  box-shadow: var(--shadow); cursor: pointer;
+}
+.btn--ghost{
+  --btn-bg: var(--bg-elev); --btn-fg: var(--text);
+  background: var(--bg-elev);
+  border: 1px solid var(--border); box-shadow: none;
+}
+
+/* Feature cards */
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(12, 1fr) }
+.col-4 { grid-column: span 4 }
+.col-6 { grid-column: span 6 }
+.col-12 { grid-column: span 12 }
+/* Custom column for wider cards (e.g. single feature card) */
+.col-8 { grid-column: span 8 }
+@media (max-width: 960px){ .col-4, .col-6, .col-8 { grid-column: span 12 } }
+@media (max-width: 960px){ .col-4, .col-6 { grid-column: span 12 } }
+
+.card {
+  /* Feature‑Karten an das Erscheinungsbild von dr‑coding.de angelehnt */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  /* Mehr Raum für Inhalte: Größere Innenabstände */
+  padding: 1.7rem 1.5rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* leichte Anhebung und intensiverer Schatten bei Hover wie im Original */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0,0,0,.55);
+}
+
+/* farbiger Akzentstreifen oben wie im Original */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+}
+}
+.card__icon {
+  /* Größere Icons für mehr Präsenz in den Vorteils‑Karten */
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+}
+.card h3 { margin: .6rem 0 .2rem }
+.card p { margin: .2rem 0 0; color: var(--muted) }
+
+/*
+  Große Feature‑Karte für den Abschnitt „Warum Stagertuning?“.  
+  Diese Karte orientiert sich am Stil der anderen Karten, verwendet jedoch
+  einen horizontalen Aufbau mit einem hervorgehobenen Icon.  
+  Sie eignet sich für längere Beschreibungen und vermittelt einen
+  hochwertigen Eindruck.
+*/
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+/* farbiger Akzentstreifen oben wie bei den anderen Karten */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+}
+/* Hover‑Effekt wie bei den anderen Karten */
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0,0,0,.55);
+}
+/* Iconbox für die große Feature‑Karte */
+.feature-card__icon {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+}
+.feature-card__icon img {
+  width: 48px;
+  height: 48px;
+}
+.feature-card h3 {
+  margin-top: 0;
+  margin-bottom: .4rem;
+  font-size: 1.3rem;
+}
+.feature-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Spezielle Variante der Feature‑Karte, die in der "Warum Stagertuning?"‑Sektion
+   verwendet wird. Sie zentriert die Karte und sorgt für zusätzlichen
+   Abstand nach oben und unten. */
+.feature-card--center {
+  margin: 2rem auto;
+  /* Zentriert die Karte innerhalb des CSS‑Grids */
+  justify-self: center;
+}
+
+/* Konfigurator */
+.konf {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: center;
+}
+@media (max-width: 960px){ .konf { grid-template-columns: 1fr } }
+.konf__panel{ background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem }
+.konf__stat{
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-top: 1rem;
+}
+.stat{
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: .8rem; padding: .6rem .8rem;
+}
+.stat b{ font-size: 1.35rem }
+
+/* FAQ */
+.accordion{ display: grid; gap: .6rem }
+.accordion__item{ border: 1px solid var(--border); border-radius: .8rem; background: var(--card) }
+.accordion__btn{
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* FAQ Icons inside the accordion buttons */
+.accordion__btn img {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.accordion__panel{ display: grid; gap: .4rem; padding: 0 1rem 1rem; color: var(--muted) }
+.accordion__btn:focus-visible { outline: 3px solid var(--focus) }
+
+/* Forms */
+.form { display: grid; gap: .8rem; max-width: 720px }
+.field{ display: grid; gap: .3rem }
+label { font-weight: 600 }
+input[type="text"], input[type="email"], textarea, select{
+  border: 1px solid var(--border); border-radius: .6rem; padding: .7rem .8rem; background: var(--bg-elev);
+}
+textarea{ min-height: 160px }
+
+/* Footer */
+.footer{
+  background: var(--bg-elev);
+  border-top: 1px solid var(--border);
+  padding-block: 2rem;
+  color: var(--muted);
+}
+.footer__grid{ display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start }
+.footer__links{ display:flex; flex-wrap:wrap; gap: .6rem }
+/* Social icons in footer */
+.footer__social {
+  display: flex;
+  gap: .8rem;
+  align-items: center;
+}
+.footer__social img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  /* Original Markenfarben – kein Graustufenfilter */
+  filter: none;
+  transition: transform .3s ease, filter .3s ease;
+}
+.footer__social a:hover img {
+  /* Beim Hover leichtes Anheben und Aufhellen */
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}
+@media (max-width: 720px){ .footer__grid{ grid-template-columns:1fr } }
+
+/* Reveal animations */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal]{ opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease }
+  [data-reveal].is-visible{ opacity: 1; transform: none }
+}
+
+/* Utility */
+
+/* Zusätzliche Styles für Stagertuning Redesign */
+
+/* Tagline unter Überschriften */
+.tagline {
+  color: var(--brand-2);
+  font-weight: 600;
+  letter-spacing: .4px;
+  margin-block: 0.5rem 1rem;
+  text-transform: uppercase;
+  font-size: .9rem;
+}
+
+/* Alternative Abschnittshintergründe */
+.section--alt {
+  background: var(--bg-elev);
+}
+
+/* Kartenvariante für Prinzipien/Werte */
+.card-values {
+  background: var(--card);
+  border: none;
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.card-values img {
+  /* Noch größere Abbildungen in den Ablauf‑ und Prinzipien‑Karten für bessere Erkennbarkeit */
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1rem;
+}
+.card-values h3 {
+  margin: .5rem 0;
+  font-size: 1.2rem;
+}
+.card-values p {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* farbiger Streifen und Hover für card-values */
+.card-values::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+}
+
+.card-values:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+}
+
+/* Liste der Marken, auf die wir spezialisiert sind */
+.brand-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+  margin: 1rem 0 0;
+  font-weight: 600;
+  color: var(--brand-2);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* Bild für Leistungsdiagramm */
+.graph-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Lizenzbild – größere Darstellung und Hover‑Effekt */
+.license-img {
+  /* Lizenzbildgröße: festes 4:1‑Verhältnis (472×118 px) */
+  width: 472px;
+  height: 118px;
+  max-width: 100%;
+  border-radius: .6rem;
+  object-fit: contain;
+  transition: transform .4s ease, filter .4s ease;
+}
+.license-link:hover .license-img {
+  /* Kein Zoom auf der Lizenz, sondern nur eine dezente Aufhellung */
+  transform: none;
+  filter: brightness(1.1);
+  /* Glühender Rand: erzeugt ein Leuchten ähnlich wie beim Original von dr‑coding.de */
+  box-shadow: 0 0 15px rgba(255,255,255,0.6), 0 0 25px var(--brand-1);
+}
+
+/*
+  Glanz‑Animation für das Lizenzbild: Beim Überfahren mit der Maus läuft ein
+  Lichtreflex (shiny streak) über das Bild, ähnlich wie beim Original von
+  dr‑coding.de. Dies erzeugt ein hochwertiges, animiertes Leuchten.
+*/
+.license-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+/* Pseudo‑Element für den Lichtreflex */
+.license-link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-20deg);
+}
+.license-link:hover::after {
+  animation: shine 1.2s forwards;
+}
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/*
+  Cookie Banner – informiert Besucher über die Nutzung von Cookies und
+  speichert ihre Zustimmung im LocalStorage. Die Gestaltung orientiert
+  sich an dr‑coding.de, passt sich aber farblich an unser dunkles Theme an.
+*/
+/*
+  Cookie Banner – horizontale Ausrichtung wie auf dr‑coding.de.  
+  Dieser Banner erstreckt sich über die gesamte Breite am unteren Rand,
+  ist flach und nimmt weniger vertikalen Platz ein. 
+*/
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card);
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, .45);
+  padding: 1rem 2rem;
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+}
+.cookie-banner.is-visible {
+  display: flex;
+}
+.cookie-banner__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--brand-1);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+}
+.cookie-banner__text {
+  flex-grow: 1;
+  font-size: .85rem;
+  line-height: 1.3;
+}
+.cookie-banner__text strong {
+  font-size: 1rem;
+  margin-right: .5rem;
+}
+.cookie-banner a {
+  color: var(--brand-1);
+  text-decoration: underline;
+}
+.cookie-banner__btn {
+  white-space: nowrap;
+  padding: .5rem 1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.cookie-banner__btn:hover {
+  opacity: .9;
+}
+
+/* Container für die große Feature‑Karte im Abschnitt „Warum Stagertuning?" */
+.feature-container {
+  display: flex;
+  justify-content: center;
+}
+.feature-container > .feature-card {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Accordion Auffrischung */
+.accordion__item {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: .8rem;
+}
+.accordion__btn {
+  background: var(--bg-elev);
+  padding: 1rem 1.2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+.accordion__panel {
+  padding: 0 1.2rem 1.2rem;
+}
+.kicker{ text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; color: var(--muted); font-weight: 700 }
+.muted{ color: var(--muted) }
+.center{ text-align:center }
+.badge{ display:inline-flex; align-items:center; gap:.3rem; padding:.25rem .5rem; border:1px solid var(--border); border-radius:.6rem; background: var(--bg-elev); font-size:.85rem }
+.small{ font-size: .9rem }
+.hr{ height:1px; background:var(--border); margin:1.25rem 0 }
+
+/*
+  Passwort-Overlay
+  Ein Vollbild-Overlay, das den gesamten Inhalt ausgraut und ein
+  Passwortfeld anzeigt. Erst nach Eingabe des korrekten Passworts wird
+  die Seite freigeschaltet. Das Overlay nutzt die gleichen Variablen
+  für Farben wie das übrige Design, um sich harmonisch einzufügen.
+*/
+.pw-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.pw-overlay.is-visible {
+  display: flex;
+}
+
+.pw-box {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  max-width: 340px;
+  width: 90%;
+  text-align: center;
+}
+
+.pw-box h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.pw-box input[type="password"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.pw-box button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+.pw-box button:hover {
+  opacity: 0.9;
+}
+
+.pw-box .error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: none;
+}
