@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Icon: Berechnung">
-  <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#3aa5ff"/><stop offset="1" stop-color="#00d1c7"/></linearGradient></defs>
-  <rect width="100%" height="100%" rx="20" fill="#0e1323" stroke="#24304d"/>
-  <g fill="none" stroke="url(#g)" stroke-width="6" transform="translate(30 30)">
-    <rect x="2" y="2" width="96" height="96" rx="12"/>
-    <path d="M26 34h48M50 22v24M34 64h12M34 76h12M34 88h12M70 64h12M70 76h12M70 88h12"/>
-  </g>
-</svg>
