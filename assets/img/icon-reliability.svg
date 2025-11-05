@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Icon: Zuverlässigkeit">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#3aa5ff"/><stop offset="1" stop-color="#00d1c7"/></linearGradient></defs>
+  <rect width="100%" height="100%" rx="20" fill="#0e1323" stroke="#24304d"/>
+  <g fill="none" stroke="url(#g)" stroke-width="6" transform="translate(32 32)">
+    <rect x="6" y="6" width="84" height="60" rx="8"/>
+    <path d="M12 24h28M12 36h28M12 48h28"/>
+    <circle cx="78" cy="36" r="12"/>
+    <path d="M70 88l20 20 28-40" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

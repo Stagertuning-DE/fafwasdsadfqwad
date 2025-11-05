@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-label="Platzhalter: Leistungsdiagramm">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#3aa5ff"/>
+      <stop offset="1" stop-color="#00d1c7"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" rx="16" fill="#0e1323" stroke="#24304d"/>
+  <g transform="translate(48,32)" fill="none" stroke="#24304d">
+    <rect width="704" height="424" rx="8" />
+    <!-- grid -->
+    <g opacity=".7">
+      <path d="M0 70H704M0 140H704M0 210H704M0 280H704M0 350H704"/>
+      <path d="M100 0V424M200 0V424M300 0V424M400 0V424M500 0V424M600 0V424"/>
+    </g>
+  </g>
+  <g transform="translate(48,32)">
+    <path d="M0 380 C200 360 220 260 280 240 S360 170 420 180 520 260 560 200 680 120 700 80" stroke="url(#g)" stroke-width="6" fill="none"/>
+    <circle cx="540" cy="210" r="6" fill="#3aa5ff"/>
+    <circle cx="700" cy="80" r="6" fill="#00d1c7"/>
+  </g>
+  <g fill="#a6adbb" font-family="system-ui" font-size="13">
+    <text x="52" y="486">Drehzahl</text>
+    <text x="726" y="486" text-anchor="end">Zeit</text>
+    <text x="52" y="24">Leistung / Drehmoment (Platzhalter)</text>
+  </g>
+</svg>
